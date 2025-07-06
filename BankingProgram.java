@@ -38,7 +38,7 @@ public class BankingProgram {
         if (choice.equalsIgnoreCase("Check Balance")) {
             System.out.println("Your current balance is: " + balance);
             if(balance == 0) {
-                System.out.println("How much money woudl you like to enter in your account? ");
+                System.out.println("How much money would you like to enter in your account? ");
                 scanner.nextLine();
                 System.out.println(balance);
             }
