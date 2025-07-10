@@ -2,16 +2,27 @@ import java.util.Scanner;
 
 public class BankingProgram {
     
+        private static int total;
         private static int balance;
+        private static int inputNum;
         private static int deposit;
         private static int withdrawl;
                     
-        public BankingProgram(int balance, int deposit, int withdrawl) {
+        public BankingProgram(int total, int balance, int deposit, int withdrawl) {
+            this.total = total;
             this.balance = balance;
             this.deposit = deposit;
             this.withdrawl = withdrawl;
         }
-                    
+
+        public int inputNum() {
+            return inputNum;
+        }
+
+        public void total() {
+            total = balance + inputNum;
+        }
+
         public int getBalance() {
             return balance;
         }
@@ -26,22 +37,20 @@ public class BankingProgram {
                     
         public static void main(String[] args) {
                     
-            Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
+        for (int i = 0; i <= 10; i++) {
             balance = 0; // The balance starts of with $0 by default
         
             System.out.println("Welcome to your online banking app!!!");
-            System.out.println("Enter your choice: Check Balance, Deposit, Withdrawl, or Exit");
+            System.out.println("Enter your choice: Check Balance, Deposit, Withdrawl, or exit");
                     
             String choice = scanner.nextLine();
         
         if (choice.equalsIgnoreCase("Check Balance")) {
-            System.out.println("Your current balance is: " + balance);
-            if(balance == 0) {
-                System.out.println("How much money would you like to enter in your account? ");
-                scanner.nextLine();
-                System.out.println(balance);
-            }
+            System.out.println("How much money would you like to enter in your account? ");
+            scanner.nextLine();
+            System.out.println("Your current balance is: " + total);
         } else if (choice.equalsIgnoreCase("Deposit")) {
             System.out.println("How much money would like to deposit?");
             deposit = Integer.parseInt(scanner.nextLine());
@@ -64,6 +73,7 @@ public class BankingProgram {
             System.exit(0);
         } else {
             System.out.println("Invalid Choice!!!");
+            }
         }
     }
 }
