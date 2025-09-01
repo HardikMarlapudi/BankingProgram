@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox spacing="14" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="src.main.ui.DashboardController" stylesheets="@../styles.css" padding="16">
+    <Label fx:id="welcomeLabel" styleClass="title"/>
+    <HBox spacing="8" alignment="CENTER">
+        <Label text="Current Balance:"/>
+        <Label fx:id="balanceLabel" styleClass="balance"/>
+        <Button text="Refresh" onAction="#onRefresh"/>
+    </HBox>
+    <Separator/>
+    <Label text="Deposit"/>
+    <HBox spacing="8" alignment="CENTER">
+        <TextField fx:id="depositField" promptText="Amount"/>
+        <Button text="Deposit" onAction="#onDeposit"/>
+    </HBox>
+    <Label text="Withdraw"/>
+    <HBox spacing="8" alignment="CENTER">
+        <TextField fx:id="withdrawField" promptText="Amount"/>
+        <Button text="Withdraw" onAction="#onWithdraw"/>
+    </HBox>
+    <Label fx:id="statusLabel" styleClass="status"/>
+</VBox>

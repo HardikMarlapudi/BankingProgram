@@ -1,0 +1,4 @@
+.title {-fx-font-size: 20px; -fx-font-weight: bold; }
+.error {-fx-text-foll: #c0392b;}
+.status {-fx-text-fill: #2c3e50;}
+.balance {-fx-font-weight: bold;}

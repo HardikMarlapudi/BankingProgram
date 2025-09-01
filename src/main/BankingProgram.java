@@ -3,104 +3,123 @@ package src.main;
 import java.util.Scanner;
 
 public class BankingProgram {
-    
-        private static String username;
-        private static String password;
-        private static int accountNumber;
-        private static int total;
-        private static int balance;
-        private static int inputNum;
-        private static int deposit;
-        private static int withdrawl;
-                    
-        public BankingProgram(String username, String password, int accountNumber, int total, int balance, int deposit, int withdrawl) {
-            this.username = username;
-            this.password = password;
-            this.accountNumber = accountNumber;
-            this.total = total;
-            this.balance = balance;
-            this.deposit = deposit;
-            this.withdrawl = withdrawl;
-        }
 
-        public String username() {
-            return username;
-        }
+    private String username;
+    private String password;
+    private int accountNumber;
+    private int balance;
 
-        public String password() {
-            return password;
-        }
+    public BankingProgram(String username, String password, int accountNumber) {
+        this.username = username;
+        this.password = password;
+        this.accountNumber = accountNumber;
+        this.balance = 0; // Starts with $0 by default
+    }
 
-        public int accountNumber() {
-            return accountNumber;
-        }
+    public BankingProgram(int accountNumber, String password, String username) {
+        this.accountNumber = accountNumber;
+        this.password = password;
+        this.username = username;
+    }
 
-        public int inputNum() {
-            return inputNum;
-        }
+    public int getBalance() {
+        return balance;
+    }
 
-        public void total() {
-            total = balance + inputNum;
-        }
+    public void deposit(int amount) {
+        balance += amount;
+    }
 
-        public int getBalance() {
-            return balance;
+    // How much money the user would like to withdrawl from their bank account
+
+    public boolean withdraw(int amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            return true;
         }
-                    
-        public int deposit() {
-            return deposit;
-        }
-                        
-        public int withdrawl() {
-            return withdrawl;
-        }
-                    
-        public static void main(String[] args) {
-                    
+        return false;
+    }
+
+    private static String USERS_FILE = "resources/jsonFolder/bankinginfo.json";
+
+    public static String getUSERS_FILE() {
+        return USERS_FILE;
+    }
+
+    public static void main(String[] args) {
         Scanner key = new Scanner(System.in);
 
-        for (int i = 0; i <= 10; i++) {
-            balance = 0; // The balance starts of with $0 by default
-        
-            System.out.println("Welcome to your online banking app!!!" );
+        System.out.println("Welcome to your online banking app!");
 
-            System.out.println("Enter your username: ");
-            key.nextLine();
+        System.out.print("Enter your username: ");
+        String username = key.nextLine();
 
-            System.out.println("Enter your password: ");
-            key.nextLine();
+        System.out.print("Enter your password: ");
+        String password = key.nextLine();
 
-            System.out.println("Enter your choice: Check Balance, Deposit, Withdrawl, or exit");
-                    
+        System.out.print("Enter your account number: ");
+        int accountNumber = Integer.parseInt(key.nextLine());
+
+        BankingProgram user = new BankingProgram(username, password, accountNumber);
+
+        while (true) {
+            System.out.println("\nEnter your choice: Check Balance, Deposit, Withdraw, or Exit");
             String choice = key.nextLine();
-        
-        if (choice.equalsIgnoreCase("Check Balance")) {
-            System.out.println("How much money would you like to enter in your account? ");
-            key.nextLine();
-            System.out.println("Your current balance is: " + total);
-        } else if (choice.equalsIgnoreCase("Deposit")) {
-            System.out.println("How much money would like to deposit?");
-            deposit = Integer.parseInt(key.nextLine());
-            balance += deposit;
-            System.out.println("You deposited $" + deposit);
-            System.out.println(balance);
-        } else if (choice.equalsIgnoreCase("Withdrawl")) {
-            System.out.println("How much money would you like to withdrawl? ");
-            withdrawl = Integer.parseInt(key.nextLine());
-            if (withdrawl <= balance) {
-            balance -= withdrawl;
-            key.nextLine();
-            System.out.println("You withdrew $" + withdrawl);
-            System.out.println(balance);
-            } else {
-                System.out.println("Insufficient funds!");
-            }
-        } else if (choice.equals("exit")) {
-            System.out.println("Thank you for using our app!");
-            System.exit(0);
-        } else {
-            System.out.println("Invalid Choice!!!");
+
+            switch (choice.toLowerCase()) {
+                case "check balance":
+                    System.out.println("Your balance is: $" + user.getBalance());
+                    break;
+
+                case "deposit":
+                    System.out.print("Enter the amount you want to deposit: ");
+                    int depositAmount = Integer.parseInt(key.nextLine());
+                    user.deposit(depositAmount);
+                    System.out.println("Your new balance is: $" + user.getBalance());
+                    break;
+
+                case "withdraw":
+                    System.out.print("Enter the amount you want to withdraw: ");
+                    int withdrawAmount = Integer.parseInt(key.nextLine());
+                    if (user.withdraw(withdrawAmount)) {
+                        System.out.println("Your new balance is: $" + user.getBalance());
+                    } else {
+                        System.out.println("Insufficient funds. Your balance is: $" + user.getBalance());
+                    }
+                    break;
+
+                case "exit":
+                    System.out.println("Thank you for using our banking app!");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         }
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
     }
 }
